@@ -3,4 +3,7 @@
     <color name="colorPrimary">#039e3e</color>
     <color name="colorPrimaryDark">#02a950</color>
     <color name="colorAccent">#e73e00</color>
+
+    <color name="indigo">#3F51B5</color>
+    <color name="CardView1">#f1a665</color>
 </resources>
