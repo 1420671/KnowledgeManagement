@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_createPoll"
             android:icon="@drawable/ic_event_black"
-            android:title="Crear Encuesta" />
+            android:title="Añadir Encuesta" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
