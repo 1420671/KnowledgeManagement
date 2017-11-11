@@ -18,10 +18,11 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_alignParenEnd="true"
+
             android:clickable="true"
             app:fabSize="normal"
-            app:srcCompat="@drawable/ic_check_circle_white" />
+            app:srcCompat="@drawable/ic_check_circle_white"
+            srcCompat="@drawable/ic_check_circle_white" />
 
         <LinearLayout
             android:layout_width="match_parent"
