@@ -91,7 +91,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    /**
+
     private void getImage(){
        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -146,9 +146,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent imageRet
 
     private class ACTION_PICK {
     }
- **/
-}
 
+}
 
 
 
