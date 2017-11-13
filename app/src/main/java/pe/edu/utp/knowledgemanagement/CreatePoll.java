@@ -1,15 +1,19 @@
 package pe.edu.utp.knowledgemanagement;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.provider.Telephony;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,10 +24,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -88,6 +92,15 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.imageView_Img:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    permission();
+                }else {
+                    getImage();
+                }
+                break;
+        }
 
     }
 
@@ -136,7 +149,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent imageRet
                     img.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     if (tempFile.exists()) tempFile.delete();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    selectedImage.compress(Bitmap.CompressFormat.PNG,100,baos);
+                    selectedImage.compress(Bitmap.CompressFormat.PNG,100, baos);
                     byte[] imageBytes = baos.toByteArray();
                     encodedImage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
                 }
@@ -144,9 +157,30 @@ protected void onActivityResult(int requestCode, int resultCode, Intent imageRet
     }
     }
 
-    private class ACTION_PICK {
-    }
+private void permission(){
+    if ((ContextCompat.checkSelfPermission(CreatePoll.this,
+            Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
+    ||(ContextCompat.checkSelfPermission(CreatePoll.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)){
 
+        ActivityCompat.requestPermissions(CreatePoll.this, new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        },1);
+    }
+}
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    switch (requestCode){
+        case 1:
+            if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                getImage();
+            }else {
+                Toast.makeText(this ,"Es necesario conceder permiso", Toast.LENGTH_SHORT).show();
+            }
+            break;
+    }
+    }
 }
 
 

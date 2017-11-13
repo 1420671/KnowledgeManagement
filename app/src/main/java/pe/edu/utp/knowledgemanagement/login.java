@@ -1,16 +1,11 @@
 package pe.edu.utp.knowledgemanagement;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
 /**
  * Created by Administrador on 11/11/2017.
  */
 
 public class login {
-
+/*
 protected  void  onCreate{Bundle savedInstance}
 
 @Override
@@ -30,5 +25,5 @@ protected  void  onCreate{Bundle savedInstance}
       }
   });
 }
-
+*/
 }
