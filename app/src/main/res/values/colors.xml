@@ -5,5 +5,7 @@
     <color name="colorAccent">#FF5252</color>
 
     <color name="indigo">#3F51B5</color>
-    <color name="CardView1">#C8E6C9</color>
+    <color name="CardView1">#B2DFDB</color>
+    <color name="fingerprint">#757575</color>
+    <color name="title5">#00BCD4</color>
 </resources>
