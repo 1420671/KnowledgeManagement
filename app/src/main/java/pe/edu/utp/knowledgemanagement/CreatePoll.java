@@ -87,7 +87,54 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
 
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
+        if (savedInstanceState != null){
+            selectedImage = savedInstanceState.getParcelable("image");
+            if (selectedImage != null){
+                img.setImageBitmap(selectedImage);
+                img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }else {
+                img.setImageResource(R.drawable.ic_photo_camera_white);
+            }
+        }
 
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle saveInstanceState){
+        saveInstanceState.putParcelable("image", selectedImage);
+        super.onSaveInstanceState(saveInstanceState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menu2 = menu;
+        getMenuInflater().inflate(R.menu.main, menu);
+        if (selectedImage == null){
+            itemMenuItem = menu.findItem(R.id.action_clear);
+            itemMenuItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_clear) {
+            img.setImageResource(R.drawable.ic_photo_camera_white);
+            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            itemMenuItem = menu2.findItem(R.id.action_clear);
+            itemMenuItem.setVisible(false);
+            encodedImage = "";
+            selectedImage = null;
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -151,6 +198,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent imageRet
                     selectedImage.compress(Bitmap.CompressFormat.PNG,100, baos);
                     byte[] imageBytes = baos.toByteArray();
                     encodedImage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
+                    itemMenuItem = menu2.findItem(R.id.action_clear);
+                    itemMenuItem.setVisible(true);
                 }
             }
     }
