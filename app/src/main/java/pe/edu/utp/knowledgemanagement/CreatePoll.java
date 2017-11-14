@@ -53,7 +53,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
     private RecyclerView.LayoutManager lManager;
     final int[] resInt= new int[1];
     final int[] valor = new int[1];
-    private final int PICKEAR = 1;
+    private final int PICKER = 1;
     DataConnection conexion;
     String function, encodedImage = "", history;
     EditText encuesta;
@@ -61,7 +61,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
     ImageView img;
     Gson gson = new Gson();
     MemoryData memoryData;
-    MenuItem itemMenuitem;
+    MenuItem itemMenuItem;
     Menu menu2;
     Networks networks;
     boolean network;
@@ -77,8 +77,8 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
         encuesta = (EditText) findViewById(R.id.editText_Encuesta);
 
         img = (ImageView) findViewById(R.id.imageView_Img);
-
         img.setOnClickListener(this);
+
         fabn = (FloatingActionButton) findViewById(R.id.fab);
         fabn.setOnClickListener(this);
 
@@ -109,9 +109,9 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         photoPickerIntent.setType("image/*");
-        photoPickerIntent.putExtra("crop","true");
-        photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT,getTempUri());
-        photoPickerIntent.putExtra("outputFormat",Bitmap.CompressFormat.PNG);
+        photoPickerIntent.putExtra("crop", "true");
+        photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+        photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.PNG);
         startActivityForResult(photoPickerIntent, REQUEST_CODE_CROP_IMAGE);
 
 
@@ -123,12 +123,11 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
     }
 
     private File getTempFile() {
-        if (Environment.getExternalStorageDirectory().equals(Environment.MEDIA_MOUNTED)){
-            File file = new File(Environment.getExternalStorageDirectory(),TEMP_PHOTO_FILE);
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+            File file = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE);
             try{
                 file.createNewFile();
-                }catch (IOException e){
-        }
+                }catch (IOException e){}
         return file;
     }else{
             return null;
@@ -173,7 +172,7 @@ private void permission(){
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     switch (requestCode){
         case 1:
-            if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 getImage();
             }else {
                 Toast.makeText(this ,"Es necesario conceder permiso", Toast.LENGTH_SHORT).show();
