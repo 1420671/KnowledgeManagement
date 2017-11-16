@@ -1,6 +1,7 @@
 package pe.edu.utp.knowledgemanagement;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -96,6 +99,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
                 img.setImageResource(R.drawable.ic_photo_camera_white);
             }
         }
+        items = new ArrayList();
 
     }
     @Override
@@ -146,6 +150,9 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
                 }else {
                     getImage();
                 }
+                break;
+            case R.id.fab:
+                alert("addNew",0);
                 break;
         }
 
@@ -229,7 +236,52 @@ private void permission(){
             break;
     }
     }
+    private void alert(final String response, final int position){
+        if (0 == items.size()){
+            numberPickerDialog();
 
+        }else{
 
+        }
+    }
+    private void numberPickerDialog(){
+        NumberPicker myNumberPicker = new NumberPicker(this);
+        myNumberPicker.setMaxValue(5);
+        myNumberPicker.setMinValue(0);
+        NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                resInt[0] = newVal;
+            }
+        };
+        myNumberPicker.setOnValueChangedListener(myValChangedListener);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(myNumberPicker);
+        builder.setTitle("Cantidad de Answer ")
+                .setIcon(R.drawable.ic_question_answer_black);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //int res = res[0];
+                ejecutar();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //recyclerView();
+                resInt[0] = 0;
+
+            }
+        });
+        builder.show();
+    }
+    public void ejecutar(){
+        if (resInt[0] != 0){
+            for (int i = 0; i < resInt[0]; i++){
+                // response("",0,"");
+            }
+            resInt[0]=0;
+        }
+    }
 }
 
