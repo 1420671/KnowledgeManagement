@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_fingerprint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="pe.edu.utp.knowledgemanagement.FingerPrintActivity">
+    
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="100dp">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/for_imageView"
+            android:layout_height="@dimen/for_imageView"
+            android:paddingTop="3dp"
+            android:layout_marginBottom="@dimen/for_fingerprint"
+            android:src="@drawable/ic_fingerprinter"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/title_fingerPrint"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            />
+        
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="@string/desc_fingerPrint"
+            android:paddingEnd="@dimen/for_fingerprint"
+            android:paddingStart="@dimen/for_fingerprint"/>
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/errortext"
+            android:textSize="14sp"
+            android:paddingEnd="@dimen/for_fingerprint"
+            android:paddingStart="@dimen/for_fingerprint"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/note"
+        android:textAlignment="center"
+        android:layout_marginLeft="@dimen/for_textView"
+        android:layout_marginRight="@dimen/for_textView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"/>
+</RelativeLayout>
