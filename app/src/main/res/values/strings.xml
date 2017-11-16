@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">KnowledgeManagement</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+
+    <string name="title_fingerPrint">One-touch for Sing in</string>
+    <string name="desc_fingerPrint">Porfavor ponga su dedo en la imagen</string>
+    <string name="note">Fingerprint sing in makes your app login much faster</string>
+    <string name="title_activity_home">Fingerprint</string>
+
+
+
+
 </resources>
