@@ -281,7 +281,7 @@ private void permission(){
     public void ejecutar(){
         if (resInt[0] != 0){
             for (int i = 0; i < resInt[0]; i++){
-                // response("",0,"");
+                 response("",0,"");
             }
             resInt[0]=0;
         }
