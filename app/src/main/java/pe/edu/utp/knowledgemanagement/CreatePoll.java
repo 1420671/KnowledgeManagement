@@ -1,6 +1,7 @@
 package pe.edu.utp.knowledgemanagement;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,6 +20,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -282,6 +285,57 @@ private void permission(){
             }
             resInt[0]=0;
         }
+    }
+    private void response(final String res, final int position, final String edit){
+        final  String[] dato = new String[1];
+        final EditText editText = new EditText(this);
+        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        //editText.addTextChangedListener(new TextChanged(this, editText));
+        if (!res.equalsIgnoreCase("")){
+            editText.setText(res);
+        }
+        editText.setHint("Respuesta");
+        // Establece la lista de filtros de entrada que se usara si el bufer es Editable
+        editText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(20)});
+        final AlertDialog d = new AlertDialog.Builder(this)
+                .setView(editText)
+                .setIcon(R.drawable.ic_question_answer_black)
+                .setTitle("Ingrese las respuestas")
+                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        //Do nothing here, override the onclick
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+        d.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        dato[0] = editText.getText().toString();
+                        if (dato[0].equals("")){
+                            Toast.makeText(CreatePoll.this, "Ingrese la respuesta", Toast.LENGTH_LONG).show();
+                            editText.requestFocus();
+                        }else
+                            d.dismiss();
+                        if (edit.equals("edit")){
+
+                        }else{
+                           /* if (history.equals("")){
+
+                            }else{
+
+                            } */
+                        }
+                    }
+                });
+            }
+        });
+                d.show();
     }
 }
 
