@@ -17,19 +17,19 @@ import android.widget.TextView;
 class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
     private Context context;
 
-    public FingerprintHandler(Context mContext) {
-        context = mContext;
+    public FingerprintHandler(Context context) {
+        this.context = context;
     }
 
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
+    public void startAuth(FingerprintManager fingerprintManager, FingerprintManager.CryptoObject cryptoObject) {
         CancellationSignal cancellationSignal = new CancellationSignal();
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) !=
                 PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        manager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
+        fingerprintManager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
     }
 
 
