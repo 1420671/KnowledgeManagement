@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -42,11 +43,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import ClassModel.AdapteResponse;
 import ClassModel.DataConnection;
 import ClassModel.MemoryData;
 import ClassModel.Networks;
 import ClassModel.TextChanged;
 import DataModel.DataResponse;
+import Interfaces.RecyclerViewOnItemClickListener;
 
 
 /**
@@ -119,7 +122,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
             items = gson.fromJson(history, typeItem);
             //Toast.makeText(this, " "+items.get(0).getResponse() , Toast.LENGTH_LONG).show();
         }
-
+        recyclerView();
     }
     @Override
     protected void onSaveInstanceState(Bundle saveInstanceState){
@@ -260,7 +263,57 @@ private void permission(){
             numberPickerDialog();
 
         }else{
+            AlertDialog.Builder alerta;
+            alerta = new AlertDialog.Builder(this);
+            alerta.setIcon(R.drawable.ic_info_outline_black);
+            alerta.setTitle("¿Que accion desea realizar?");
+            if (!response.equalsIgnoreCase("")){
+                alerta.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        items.remove(position);
+                        history = gson.toJson(items);
+                        memoryData.saveData("createHistoryPoll", history);
+                        recyclerView();
+                    }
+                });
+                alerta.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+
+            }
+            if (response.equals("addNew")){
+                alerta.setNegativeButton("Agregar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        response("", 0, "");
+                    }
+                });
+                alerta.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alerta.setPositiveButton("Nuevo", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        memoryData.saveData("createHistoryPoll", "");
+                        int count = items.size();
+                        if (count > 0){
+                            do {
+                                items.remove(0);
+                            }while (0 < items.size());
+                            valor[0] = 0;
+                            recyclerView();
+                        }
+                    }
+                });
+            }
+            alerta.show();
         }
     }
     private void numberPickerDialog(){
@@ -358,12 +411,31 @@ private void permission(){
                             }
                             valor[0]++;
                         }
+                        recyclerView();
 
                     }
                 });
             }
         });
                 d.show();
+    }
+    private void recyclerView(){
+        history = memoryData.getData("createHistoryPoll");
+        if (history.equals("")){
+            items = new ArrayList();
+        }else {
+            Type typeItem = new TypeToken<List<DataResponse>>(){
+                }.getType();
+            items = gson.fromJson(history, typeItem);
+        }
+        recycler.setAdapter(new AdapteResponse(items, new RecyclerViewOnItemClickListener() {
+            @Override
+            public void onClick(View v, int position, CheckBox checkBox) {
+                String res = items.get(position).getResponse();
+                alert(res, position);
+
+            }
+        }));
     }
 }
 
