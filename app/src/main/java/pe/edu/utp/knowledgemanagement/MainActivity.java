@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         itemMenuItem = menu.findItem(R.id.action_clear);
         itemMenuItem.setVisible(false);
+        itemMenuItem = menu.findItem(R.id.action_send);
+        itemMenuItem.setVisible(false);
         return true;
     }
 

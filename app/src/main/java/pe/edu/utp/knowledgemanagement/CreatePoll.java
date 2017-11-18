@@ -159,6 +159,10 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
             selectedImage = null;
             return true;
         }
+        if (id == R.id.action_send){
+            sendPoll();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -283,6 +287,12 @@ private void permission(){
 
                     }
                 });
+                alerta.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        response(response, position, "edit");
+                    }
+                });
 
             }
             if (response.equals("addNew")){
@@ -298,7 +308,7 @@ private void permission(){
 
                     }
                 });
-                alerta.setPositiveButton("Nuevo", new DialogInterface.OnClickListener() {
+                                alerta.setPositiveButton("Nuevo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         memoryData.saveData("createHistoryPoll", "");
@@ -392,6 +402,11 @@ private void permission(){
                         }else
                             d.dismiss();
                         if (edit.equals("edit")){
+                            valor[0] = items.get(position).getNumber();
+                            items.remove(position);
+                            items.add(position, new DataResponse(dato[0],"", valor[0]));
+                            history = gson.toJson(items);
+                            memoryData.saveData("createHistoryPoll", history);
 
                         }else{
                             if (history.equals("")){
@@ -436,6 +451,26 @@ private void permission(){
 
             }
         }));
+    }
+    private void sendPoll(){
+        String encuest = encuesta.getText().toString();
+        if (encodedImage.equals("")){
+            Toast.makeText(this, "Seleccione una imagen para el cuestionario", Toast.LENGTH_SHORT).show();
+        }else {
+            if (encuest.equals("")){
+                Toast.makeText(this, "Ingrese el titulo para el cuestionario", Toast.LENGTH_LONG).show();
+                encuesta.requestFocus();
+            }else {
+                if (0 == items.size()){
+                    Toast.makeText(this, "Ingrese las respuestas", Toast.LENGTH_SHORT).show();
+                }else {
+                    history = memoryData.getData("createHistoryPoll");
+                    if (history.equalsIgnoreCase("")){
+
+                    }
+                }
+            }
+        }
     }
 }
 
