@@ -33,10 +33,12 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,6 +114,11 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
         networks = new Networks(this);
         memoryData = MemoryData.getInstance(this);
         history = memoryData.getData("createHistoryPoll");
+        if (!history.equalsIgnoreCase("")){
+            Type typeItem = new TypeToken<List<DataResponse>>(){}.getType();
+            items = gson.fromJson(history, typeItem);
+            Toast.makeText(this, " "+items.get(0).getResponse() , Toast.LENGTH_LONG).show();
+        }
 
     }
     @Override
@@ -334,12 +341,24 @@ private void permission(){
                         if (edit.equals("edit")){
 
                         }else{
-                           /* if (history.equals("")){
+                            if (history.equals("")){
+                                items.add(new DataResponse(dato[0], "", valor[0]));
+                                history = gson.toJson(items);
+                                memoryData.saveData("createHistoryPoll", history);
 
                             }else{
+                                if (5 > items.size()){
+                                    items.add(new DataResponse(dato[0], "", valor[0]));
+                                    history = gson.toJson(items);
+                                    memoryData.saveData("createHistoryPoll", history);
+                                }else{
+                                    Toast.makeText(CreatePoll.this, "Solo se admiten 5 respuestas", Toast.LENGTH_LONG).show();
+                                }
 
-                            } */
+                            }
+                            valor[0]++;
                         }
+
                     }
                 });
             }
