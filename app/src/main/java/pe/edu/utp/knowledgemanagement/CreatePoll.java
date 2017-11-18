@@ -43,6 +43,7 @@ import java.util.List;
 import ClassModel.DataConnection;
 import ClassModel.MemoryData;
 import ClassModel.Networks;
+import ClassModel.TextChanged;
 import DataModel.DataResponse;
 
 
@@ -81,6 +82,8 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.create_poll);
 
         encuesta = (EditText) findViewById(R.id.editText_Encuesta);
+        encuesta.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        encuesta.addTextChangedListener(new TextChanged(this, encuesta));
 
         img = (ImageView) findViewById(R.id.imageView_Img);
         img.setOnClickListener(this);
@@ -102,8 +105,14 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
                 img.setImageResource(R.drawable.ic_photo_camera_white);
             }
         }
+        valor[0] = 1;
+        function = "newPoll";
         items = new ArrayList();
-
+        val = new ArrayList();
+        networks = new Networks(this);
+        /*memoryData = MemoryData.getInstance(this);
+        history = memoryData.getData("createHistoryPoll");
+*/
     }
     @Override
     protected void onSaveInstanceState(Bundle saveInstanceState){
@@ -290,7 +299,7 @@ private void permission(){
         final  String[] dato = new String[1];
         final EditText editText = new EditText(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-        //editText.addTextChangedListener(new TextChanged(this, editText));
+        editText.addTextChangedListener(new TextChanged(this, editText));
         if (!res.equalsIgnoreCase("")){
             editText.setText(res);
         }
