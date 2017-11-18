@@ -110,9 +110,9 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
         items = new ArrayList();
         val = new ArrayList();
         networks = new Networks(this);
-        /*memoryData = MemoryData.getInstance(this);
+        memoryData = MemoryData.getInstance(this);
         history = memoryData.getData("createHistoryPoll");
-*/
+
     }
     @Override
     protected void onSaveInstanceState(Bundle saveInstanceState){
