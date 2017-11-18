@@ -117,7 +117,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
         if (!history.equalsIgnoreCase("")){
             Type typeItem = new TypeToken<List<DataResponse>>(){}.getType();
             items = gson.fromJson(history, typeItem);
-            Toast.makeText(this, " "+items.get(0).getResponse() , Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, " "+items.get(0).getResponse() , Toast.LENGTH_LONG).show();
         }
 
     }
