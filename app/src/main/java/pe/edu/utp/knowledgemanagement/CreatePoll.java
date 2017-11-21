@@ -366,7 +366,7 @@ private void permission(){
         }
     }
     private void response(final String res, final int position, final String edit){
-        final  String[] dato = new String[1];
+        final String[] dato = new String[1];
         final EditText editText = new EditText(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
         editText.addTextChangedListener(new TextChanged(this, editText));
@@ -465,9 +465,10 @@ private void permission(){
                     Toast.makeText(this, "Ingrese las respuestas", Toast.LENGTH_SHORT).show();
                 }else {
                     history = memoryData.getData("createHistoryPoll");
-                    if (history.equalsIgnoreCase("")){
+                    if (!history.equalsIgnoreCase("")){
                         network = networks.verificaConexion();
                         if (network == true){
+                            conexion = new DataConnection(this, function, encuest, history, encodedImage);
 
                         }else {
                             Toast.makeText(this, "Comprueba tu conexion a Internet.", Toast.LENGTH_SHORT).show();
