@@ -466,6 +466,12 @@ private void permission(){
                 }else {
                     history = memoryData.getData("createHistoryPoll");
                     if (history.equalsIgnoreCase("")){
+                        network = networks.verificaConexion();
+                        if (network == true){
+
+                        }else {
+                            Toast.makeText(this, "Comprueba tu conexion a Internet.", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 }
