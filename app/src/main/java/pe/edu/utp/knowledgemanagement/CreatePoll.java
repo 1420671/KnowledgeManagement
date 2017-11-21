@@ -329,7 +329,7 @@ private void permission(){
     private void numberPickerDialog(){
         NumberPicker myNumberPicker = new NumberPicker(this);
         myNumberPicker.setMaxValue(5);
-        myNumberPicker.setMinValue(0);
+        myNumberPicker.setMinValue(1);
         NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

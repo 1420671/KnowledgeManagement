@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KnowledgeManagement.iml" filepath="$PROJECT_DIR$/KnowledgeManagement.iml" />
       <module fileurl="file://C:\Users\Cristian\Documents\GitHub\KnowledgeManagement\KnowledgeManagement.iml" filepath="C:\Users\Cristian\Documents\GitHub\KnowledgeManagement\KnowledgeManagement.iml" />
+      <module fileurl="file://F:\Development\z739\KnowledgeManagement\KnowledgeManagement.iml" filepath="F:\Development\z739\KnowledgeManagement\KnowledgeManagement.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://F:\Development\z739\KnowledgeManagement\app\app.iml" filepath="F:\Development\z739\KnowledgeManagement\app\app.iml" />
       <module fileurl="file://C:\Users\Cristian\Documents\GitHub\KnowledgeManagement\app\app.iml" filepath="C:\Users\Cristian\Documents\GitHub\KnowledgeManagement\app\app.iml" />
     </modules>
   </component>
