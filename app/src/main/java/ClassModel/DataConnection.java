@@ -45,7 +45,7 @@ public class DataConnection extends BaseVolley {
                     json_data = new JSONObject(s);
                     switch (data1){
                         case "newPoll":
-                            jsonData = json_data.getString("Insert");
+                                jsonData = json_data.getString("Insert");
                             break;
                     }
                 } catch (JSONException e) {
