@@ -1,6 +1,7 @@
 package ClassModel;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,8 +25,8 @@ public class DataConnection extends BaseVolley {
     private Context context;
     private String data1, data2, data3, data4,jsonData;
     JSONObject json_data;
-    private Boolean run;
     Datapoll datapoll;
+    private int run = 0;
     ArrayList<Datapoll> listPoll = new ArrayList();
     public DataConnection(Context context, String data1, String data2, String data3, String data4) {
         super(context);
@@ -46,6 +47,12 @@ public class DataConnection extends BaseVolley {
                     switch (data1){
                         case "newPoll":
                                 jsonData = json_data.getString("Insert");
+                                if (jsonData.equals("insert")){
+                                    run = 1;
+                                }else {
+                                    run = 2;
+                                    Toast.makeText(context, "El titulo ya existe",Toast.LENGTH_SHORT).show();
+                                }
                             break;
                     }
                 } catch (JSONException e) {
@@ -55,7 +62,8 @@ public class DataConnection extends BaseVolley {
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -76,5 +84,8 @@ public class DataConnection extends BaseVolley {
 
         };
         addToqueue(putRequest);
+    }
+    public int getData(){
+        return run;
     }
 }

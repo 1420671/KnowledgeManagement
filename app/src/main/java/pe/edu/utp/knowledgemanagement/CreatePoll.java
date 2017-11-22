@@ -31,6 +31,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -80,6 +81,7 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
     Handler handler = new Handler();
     ArrayList<String> val;
     FloatingActionButton fabn;
+    private ProgressBar progressBar;
 
 
     protected void onCreate (Bundle savedInstanceState) {
@@ -98,6 +100,8 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
 
         recycler = (RecyclerView) findViewById(R.id.view);
         recycler.setHasFixedSize(true);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
 
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
@@ -469,6 +473,7 @@ private void permission(){
                         network = networks.verificaConexion();
                         if (network == true){
                             conexion = new DataConnection(this, function, encuest, history, encodedImage);
+                            progressBar.setVisibility(ProgressBar.VISIBLE);
 
                         }else {
                             Toast.makeText(this, "Comprueba tu conexion a Internet.", Toast.LENGTH_SHORT).show();
@@ -478,6 +483,29 @@ private void permission(){
                 }
             }
         }
+    }
+    private void ejecutarClear(){
+        final boolean[] run = {true};
+        final int[] pStatus = {0};
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (run[0]){
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            pStatus[0] =  conexion.getData();
+                            if (pStatus[0] == 1){
+                                run[0] = false;
+                            }
+                            if (pStatus[0] == 2){
+                                progressBar.setVisibility(ProgressBar.INVISIBLE);
+                            }
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 }
 
