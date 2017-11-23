@@ -110,6 +110,10 @@ public class CreatePoll extends AppCompatActivity implements View.OnClickListene
             if (selectedImage != null){
                 img.setImageBitmap(selectedImage);
                 img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                selectedImage.compress(Bitmap.CompressFormat.PNG, 100,baos);
+                byte[] imageByte = baos.toByteArray();
+                encodedImage = Base64.encodeToString(imageByte, Base64.DEFAULT);
             }else {
                 img.setImageResource(R.drawable.ic_photo_camera_white);
             }
