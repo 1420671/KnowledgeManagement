@@ -473,6 +473,7 @@ private void permission(){
                         network = networks.verificaConexion();
                         if (network == true){
                             conexion = new DataConnection(this, function, encuest, history, encodedImage);
+                            ejecutarClear();
                             progressBar.setVisibility(ProgressBar.VISIBLE);
 
                         }else {
@@ -496,16 +497,41 @@ private void permission(){
                         public void run() {
                             pStatus[0] =  conexion.getData();
                             if (pStatus[0] == 1){
+                                clear();
                                 run[0] = false;
                             }
                             if (pStatus[0] == 2){
                                 progressBar.setVisibility(ProgressBar.INVISIBLE);
+
                             }
                         }
                     });
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).start();
+    }
+    private void clear(){
+        img.setImageResource(R.drawable.ic_photo_camera_white);
+        img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        itemMenuItem = menu2.findItem(R.id.action_clear);
+        itemMenuItem.setVisible(false);
+        encodedImage = null;
+        encuesta.setText("");
+        memoryData.saveData("createHistoryPoll","");
+        int count = items.size();
+        if (count > 0){
+            do {
+                items.remove(0);
+            }while (0 < items.size());
+            valor[0]=0;
+            recyclerView();
+        }
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 }
 

@@ -78,6 +78,14 @@ public class DataConnection extends BaseVolley {
                         params.put("response", data3);
                         params.put("image", data4);
                         break;
+                    case "getPoll":
+                        params.put("function", data1);
+                        params.put("date", "");
+                        break;
+                    case "getResponse":
+                        params.put("function",data1);
+                        params.put("idPoll",data2);
+                        break;
                 }
                 return params;
             }
