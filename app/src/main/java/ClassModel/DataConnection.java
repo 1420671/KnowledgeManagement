@@ -78,7 +78,8 @@ public class DataConnection extends BaseVolley {
                         params.put("response", data3);
                         params.put("image", data4);
                         break;
-                    case "getPoll":
+                        // aun no lo utilizo :( xk aun no termino de interectuar por postman
+                   /* case "getPoll":
                         params.put("function", data1);
                         params.put("date", "");
                         break;
@@ -86,6 +87,7 @@ public class DataConnection extends BaseVolley {
                         params.put("function",data1);
                         params.put("idPoll",data2);
                         break;
+                        */
                 }
                 return params;
             }
