@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import pe.edu.utp.knowledgemanagement.bean.UsuarioBean;
 import pe.edu.utp.knowledgemanagement.dao.UsuarioDAO;
 
-public class UsuarioListaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class UsuarioListaActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener , View.OnClickListener {
 
     ListView lsv;
     Button btnNuevo;
