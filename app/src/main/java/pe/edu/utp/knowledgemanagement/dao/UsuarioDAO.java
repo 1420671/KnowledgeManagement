@@ -1,13 +1,13 @@
-package com.example.usuario.login.dao;
+package pe.edu.utp.knowledgemanagement.dao;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.usuario.login.bean.UsuarioBean;
-import com.example.usuario.login.conexion.Conexion;
-
 import java.util.ArrayList;
+
+import pe.edu.utp.knowledgemanagement.bean.UsuarioBean;
+import pe.edu.utp.knowledgemanagement.conexion.Conexion;
 
 public class UsuarioDAO {
     Context contexto;

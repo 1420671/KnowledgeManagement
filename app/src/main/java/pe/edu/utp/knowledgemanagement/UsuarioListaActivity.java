@@ -1,4 +1,4 @@
-package com.example.usuario.login.practica;
+package pe.edu.utp.knowledgemanagement;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +8,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
-import com.example.usuario.login.R;
-import com.example.usuario.login.bean.UsuarioBean;
-import com.example.usuario.login.dao.UsuarioDAO;
-
 import java.util.ArrayList;
+
+import pe.edu.utp.knowledgemanagement.bean.UsuarioBean;
+import pe.edu.utp.knowledgemanagement.dao.UsuarioDAO;
 
 public class UsuarioListaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
