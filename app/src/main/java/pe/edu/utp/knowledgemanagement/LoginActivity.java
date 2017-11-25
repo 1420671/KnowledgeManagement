@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+/*
         emailTextView=(EditText)findViewById(R.id.emailEditText);
         passwordTextView=(EditText)findViewById(R.id.passwordEditText);
         loginButton=(Button)findViewById(R.id.loginButton);
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
-        return parameter;
+        return parameter;*/
     }
 
 }
