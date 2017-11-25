@@ -46,7 +46,7 @@ public class AdapterPoll extends RecyclerView.Adapter<AdapterPoll.PollViewHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return items.size();
     }
     public static class PollViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private FloatingActionButtonClick floatingActionButtonClick;
@@ -59,7 +59,7 @@ public class AdapterPoll extends RecyclerView.Adapter<AdapterPoll.PollViewHolder
             floatingButton1 = (FloatingActionButton) itemView.findViewById(R.id.floatingButton1);
             floatingButton2 = (FloatingActionButton) itemView.findViewById(R.id.floatingButton2);
             floatingButton3 = (FloatingActionButton) itemView.findViewById(R.id.floatingButton3);
-            vote = (TextView) itemView.findViewById(R.id.textView_Vote);
+            vote = (TextView) itemView.findViewById(R.id.textView_Votes);
             response = (TextView) itemView.findViewById(R.id.textView_Response);
             title = (TextView) itemView.findViewById(R.id.textView_Title);
             floatingButton1.setOnClickListener(this);

@@ -2,24 +2,45 @@ package pe.edu.utp.knowledgemanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import java.util.ArrayList;
+
+import ClassModel.AdapterPoll;
+import ClassModel.DataConnection;
+import ClassModel.Networks;
+import DataModel.DataPoll;
+import Interfaces.FloatingActionButtonClick;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    MenuItem itemMenuItem;
-    Menu menu2;
+    private MenuItem itemMenuItem;
+    private DataConnection conexion;
+    private String function;
+    private RecyclerView recycler;
+    private RecyclerView.LayoutManager lManager;
+    private Handler handler = new Handler();
+    private ArrayList<DataPoll> listPoll = new ArrayList();
+    private ProgressBar progressBar;
+    private Networks networks;
+    private boolean Network;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -43,6 +64,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        recycler = (RecyclerView) findViewById(R.id.recyclerView_Poll);
+        recycler.setHasFixedSize(true);
+        lManager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(lManager);
+
+        function = "getPoll";
+        networks= new Networks(this);
+        Network = networks.verificaConexion();
+        conexion = new DataConnection(this, function, "", "", "");
+        ejecutarPoll();
     }
 
     @Override
@@ -107,4 +138,48 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    private void ejecutarPoll(){
+        final boolean[] run = {true};
+        final int[] pStatus = {0};
+        final int[] count = {0};
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (run[0]){
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (function.equals("getPoll")){
+                                listPoll = conexion.getPoll();
+                                count[0] = listPoll.size();
+
+                            }
+                            if (pStatus[0] < count[0]){
+                                 run[0] = false;
+                                if (function.equals("getPoll")){
+                                    mostrarPoll();
+                                }
+                            }
+
+                        }
+                    });
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+    private void mostrarPoll(){
+        listPoll = conexion.getPoll();
+        recycler.setAdapter(new AdapterPoll(listPoll, new FloatingActionButtonClick() {
+            @Override
+            public void onClick(View v, int position) {
+
+            }
+        }));
+    }
+
 }
