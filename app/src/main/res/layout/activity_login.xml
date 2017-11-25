@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/logo_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/title_email"
         />
 
     <EditText
@@ -47,18 +48,19 @@
         android:layout_margin="@dimen/to_login"
         android:ems="10"
         android:inputType="numberPassword"
-        app:layout_constraintTop_toBottomOf="@id/text_email"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/text_email"
+        android:hint="@string/title_password"/>
 
     <Button
         android:id="@+id/button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/to_login"
-        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Ingresar"/>
 
 </android.support.constraint.ConstraintLayout>
