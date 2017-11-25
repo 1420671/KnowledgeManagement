@@ -25,7 +25,6 @@ import ClassModel.AdapterPoll;
 import ClassModel.DataConnection;
 import ClassModel.Networks;
 import DataModel.DataPoll;
-import Interfaces.FloatingActionButtonClick;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -142,13 +141,11 @@ public class MainActivity extends AppCompatActivity
         final boolean[] run = {true};
         final int[] pStatus = {0};
         final int[] count = {0};
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
+
                 while (run[0]){
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
+
                             if (function.equals("getPoll")){
                                 listPoll = conexion.getPoll();
                                 count[0] = listPoll.size();
@@ -161,7 +158,7 @@ public class MainActivity extends AppCompatActivity
                                 }
                             }
 
-                        }
+
                     });
                     try {
                         Thread.sleep(3000);
@@ -169,16 +166,13 @@ public class MainActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
                 }
-            }
+
         }).start();
     }
     private void mostrarPoll(){
         listPoll = conexion.getPoll();
-        recycler.setAdapter(new AdapterPoll(listPoll, new FloatingActionButtonClick() {
-            @Override
-            public void onClick(View v, int position) {
+        recycler.setAdapter(new AdapterPoll(listPoll, (v, position)-> {
 
-            }
         }));
     }
 

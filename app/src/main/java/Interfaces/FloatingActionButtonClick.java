@@ -8,4 +8,5 @@ import android.view.View;
 
 public interface FloatingActionButtonClick {
     void onClick(View v, int position);
+
 }

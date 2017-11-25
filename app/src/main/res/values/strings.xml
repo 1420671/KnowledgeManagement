@@ -12,5 +12,7 @@
     <string name="title_login">Bienvenido</string>
     <string name="title_email">Email</string>
     <string name="title_password">Password</string>
+    <string name="fechas">Fechas</string>
+
 
 </resources>

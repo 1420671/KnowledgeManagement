@@ -1,8 +1,6 @@
 package pe.edu.utp.knowledgemanagement;
 
 import android.Manifest;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -50,7 +47,6 @@ import ClassModel.MemoryData;
 import ClassModel.Networks;
 import ClassModel.TextChanged;
 import DataModel.DataResponse;
-import Interfaces.RecyclerViewOnItemClickListener;
 
 
 /**
@@ -280,45 +276,32 @@ private void permission(){
             alerta.setIcon(R.drawable.ic_info_outline_black);
             alerta.setTitle("¿Que accion desea realizar?");
             if (!response.equalsIgnoreCase("")){
-                alerta.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                alerta.setNegativeButton("Eliminar", (dialog,  which)-> {
+
                         items.remove(position);
                         history = gson.toJson(items);
                         memoryData.saveData("createHistoryPoll", history);
                         recyclerView();
-                    }
-                });
-                alerta.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
                 });
-                alerta.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                alerta.setNeutralButton("Cancelar", (dialog,  which)->{
+                });
+                alerta.setPositiveButton("Editar",  (dialog,  which)->{
                         response(response, position, "edit");
-                    }
+
                 });
 
             }
             if (response.equals("addNew")){
-                alerta.setNegativeButton("Agregar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                alerta.setNegativeButton("Agregar",  (dialog,  which)->{
                         response("", 0, "");
-                    }
-                });
-                alerta.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
                 });
-                                alerta.setPositiveButton("Nuevo", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                alerta.setNeutralButton("Cancelar",  (dialog,  which)->{
+
+
+                });
+                                alerta.setPositiveButton("Nuevo",  (dialog,  which)->{
                         memoryData.saveData("createHistoryPoll", "");
                         int count = items.size();
                         if (count > 0){
@@ -328,7 +311,7 @@ private void permission(){
                             valor[0] = 0;
                             recyclerView();
                         }
-                    }
+
                 });
             }
             alerta.show();
@@ -338,30 +321,26 @@ private void permission(){
         NumberPicker myNumberPicker = new NumberPicker(this);
         myNumberPicker.setMaxValue(5);
         myNumberPicker.setMinValue(1);
-        NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        NumberPicker.OnValueChangeListener myValChangedListener = (picker, oldVal, newVal)-> {
+
                 resInt[0] = newVal;
-            }
+
         };
         myNumberPicker.setOnValueChangedListener(myValChangedListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(myNumberPicker);
         builder.setTitle("Cantidad de Answer ")
                 .setIcon(R.drawable.ic_question_answer_black);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton(android.R.string.ok, (dialog,  which)->{
+
                 //int res = res[0];
                 ejecutar();
-            }
+
         });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton(android.R.string.cancel, (dialog,  which)->{
                 //recyclerView();
                 resInt[0] = 0;
 
-            }
+
         });
         builder.show();
     }
@@ -388,21 +367,15 @@ private void permission(){
                 .setView(editText)
                 .setIcon(R.drawable.ic_question_answer_black)
                 .setTitle("Ingrese las respuestas")
-                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        //Do nothing here, override the onclick
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog,  which)->{
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
-        d.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
+        d.setOnShowListener((dialog)->{
+
                 Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
-                b.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
+                b.setOnClickListener((v)->{
+
                         dato[0] = editText.getText().toString();
                         if (dato[0].equals("")){
                             Toast.makeText(CreatePoll.this, "Ingrese la respuesta", Toast.LENGTH_LONG).show();
@@ -436,9 +409,9 @@ private void permission(){
                         }
                         recyclerView();
 
-                    }
+
                 });
-            }
+
         });
                 d.show();
     }
@@ -451,13 +424,12 @@ private void permission(){
                 }.getType();
             items = gson.fromJson(history, typeItem);
         }
-        recycler.setAdapter(new AdapteResponse(items, new RecyclerViewOnItemClickListener() {
-            @Override
-            public void onClick(View v, int position, CheckBox checkBox) {
+        recycler.setAdapter(new AdapteResponse(items, (v,  position, checkBox)->{
+
                 String res = items.get(position).getResponse();
                 alert(res, position);
 
-            }
+
         }));
     }
     private void sendPoll(){
@@ -492,13 +464,11 @@ private void permission(){
     private void ejecutarClear(){
         final boolean[] run = {true};
         final int[] pStatus = {0};
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(()-> {
+
                 while (run[0]){
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(()-> {
+
                             pStatus[0] =  conexion.getData();
                             if (pStatus[0] == 1){
                                 clear();
@@ -508,7 +478,7 @@ private void permission(){
                                 progressBar.setVisibility(ProgressBar.INVISIBLE);
 
                             }
-                        }
+
                     });
                     try {
                         Thread.sleep(3000);
@@ -516,7 +486,7 @@ private void permission(){
                         e.printStackTrace();
                     }
                 }
-            }
+
         }).start();
     }
     private void clear(){

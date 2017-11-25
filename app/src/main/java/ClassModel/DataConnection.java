@@ -4,8 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -40,9 +38,8 @@ public class DataConnection extends BaseVolley {
     }
     private void makeRequest(){
         String url = "http://joelitopqmz.pe.hu/WebService.php";
-        StringRequest putRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
+        StringRequest putRequest = new StringRequest(Request.Method.POST, url, (s)-> {
+
                 try {
                     json_data = new JSONObject(s);
                     switch (data1){
@@ -75,13 +72,12 @@ public class DataConnection extends BaseVolley {
                     e.printStackTrace();
                 }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
+
+        }, (volleyError)-> {
+
                 Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
 
-            }
+
         }
         ){
             @Override
