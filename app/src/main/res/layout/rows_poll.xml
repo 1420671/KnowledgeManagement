@@ -16,14 +16,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textView_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="TextView" />
+                    android:text="Titulo" />
             </RelativeLayout>
 
             <android.support.v7.widget.CardView
@@ -32,7 +33,7 @@
                 android:layout_marginBottom="5dp">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/imageView_Poll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -58,14 +59,15 @@
             android:orientation="horizontal">
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/floatingButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 app:backgroundTint="?attr/colorButtonNormal"
-                app:srcCompat="@drawable/ic_event_black" />
+                app:elevation="-1dp"
+                app:srcCompat="@drawable/ic_check_circle_black" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -73,16 +75,16 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView_Votes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="TextView" />
+                    android:text="0" />
             </RelativeLayout>
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton2"
+                android:id="@+id/floatingButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -90,7 +92,8 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 app:backgroundTint="?attr/colorButtonNormal"
-                app:srcCompat="@drawable/ic_event_black" />
+                app:elevation="-1dp"
+                app:srcCompat="@drawable/ic_question_answer_black" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -98,22 +101,23 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView_Response"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="TextView" />
+                    android:text="0" />
             </RelativeLayout>
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton3"
+                android:id="@+id/floatingButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 app:backgroundTint="?attr/colorButtonNormal"
+                app:elevation="-1dp"
                 app:srcCompat="@drawable/ic_event_black" />
 
         </LinearLayout>
