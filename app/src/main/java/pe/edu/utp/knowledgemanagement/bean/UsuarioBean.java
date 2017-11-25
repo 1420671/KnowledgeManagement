@@ -1,4 +1,4 @@
-package com.example.usuario.login.bean;
+package pe.edu.utp.knowledgemanagement.bean;
 
 import java.io.Serializable;
 

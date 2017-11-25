@@ -1,4 +1,4 @@
-package com.example.usuario.login.conexion;
+package pe.edu.utp.knowledgemanagement.conexion;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
