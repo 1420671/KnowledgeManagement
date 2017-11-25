@@ -9,4 +9,7 @@
     <string name="note">Fingerprint sing in makes your app login much faster</string>
     <string name="title_activity_home">Fingerprint</string>
 
+    <string name="title_email">Email</string>
+    <string name="title_password">Password</string>
+
 </resources>
