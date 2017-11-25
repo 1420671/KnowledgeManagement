@@ -1,4 +1,4 @@
-package com.example.usuario.login.practica;
+package pe.edu.utp.knowledgemanagement;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.usuario.login.R;
-import com.example.usuario.login.bean.UsuarioBean;
-import com.example.usuario.login.dao.UsuarioDAO;
+import pe.edu.utp.knowledgemanagement.bean.UsuarioBean;
+import pe.edu.utp.knowledgemanagement.dao.UsuarioDAO;
 
 public class UsuarioNuevoActivity extends AppCompatActivity implements View.OnClickListener{
 
