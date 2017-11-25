@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import DataModel.Datapoll;
+import DataModel.DataPoll;
 
 /**
  * Created by Hypnos on 11/11/2017.
@@ -25,9 +26,9 @@ public class DataConnection extends BaseVolley {
     private Context context;
     private String data1, data2, data3, data4,jsonData;
     JSONObject json_data;
-    Datapoll datapoll;
+    DataPoll dataPoll;
     private int run = 0;
-    ArrayList<Datapoll> listPoll = new ArrayList();
+    ArrayList<DataPoll> listPoll = new ArrayList();
     public DataConnection(Context context, String data1, String data2, String data3, String data4) {
         super(context);
         this.context = context;
@@ -53,6 +54,21 @@ public class DataConnection extends BaseVolley {
                                     run = 2;
                                     Toast.makeText(context, "El titulo ya existe",Toast.LENGTH_SHORT).show();
                                 }
+                            break;
+                        case "getPoll":
+                            JSONArray resultJSON = json_data.getJSONArray("results");
+                            int count = resultJSON.length();
+                            for (int i = 0; i < count; i++){
+                                JSONObject jsonNode = resultJSON.getJSONObject(i);
+                                String image = jsonNode.optString("Imagen").toString();
+                                String titulo = jsonNode.optString("Titulo").toString();
+                                String resp = jsonNode.getString("Respuestas").toString();
+                                String votos = jsonNode.getString("Votos").toString();
+                                String fecha = jsonNode.getString("Fecha").toString();
+                                String id = jsonNode.optString("Id").toString();
+                                dataPoll = new DataPoll(id, titulo, resp, votos, fecha, image);
+                                listPoll.add(dataPoll);
+                            }
                             break;
                     }
                 } catch (JSONException e) {
