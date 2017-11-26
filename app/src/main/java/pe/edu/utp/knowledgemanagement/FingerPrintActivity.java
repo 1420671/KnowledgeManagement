@@ -4,6 +4,7 @@ package pe.edu.utp.knowledgemanagement;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -50,6 +51,9 @@ public class FingerPrintActivity extends AppCompatActivity {
 
 
         if(!fingerprintManager.isHardwareDetected()){
+
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
 
             textView.setText("Your Device does not have a Fingerprint Sensor");
         }else {
