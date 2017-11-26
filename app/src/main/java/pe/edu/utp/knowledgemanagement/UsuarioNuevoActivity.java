@@ -67,7 +67,7 @@ public class UsuarioNuevoActivity extends AppCompatActivity implements View.OnCl
             }
 
 
-            Intent ir=new Intent(this,UsuarioListaActivity.class);
+            Intent ir=new Intent(this,LoginActivity.class);
             startActivity(ir);
 
         }

@@ -1,105 +1,61 @@
 package pe.edu.utp.knowledgemanagement;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import pe.edu.utp.knowledgemanagement.bean.UsuarioBean;
+import pe.edu.utp.knowledgemanagement.dao.UsuarioDAO;
 
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.Scanner;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class LoginActivity extends AppCompatActivity {
-    TextView emailTextView;
-    TextView passwordTextView;
-    Button loginButton;
+    EditText edtEmail,edtPwd;
+    Button btnLogin, btnRegistrar;
+
+
+    private void iniciaComponente(){
+        edtEmail = (EditText)findViewById(R.id.edtEmail);
+        edtPwd = (EditText)findViewById(R.id.edtPassword);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(this);
+        btnRegistrar = (Button) findViewById(R.id.btnNuevo);
+        btnRegistrar.setOnClickListener(this);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        iniciaComponente();
+    }
 
-        emailTextView=(EditText)findViewById(R.id.emailEditText);
-        passwordTextView=(EditText)findViewById(R.id.passwordEditText);
-        loginButton=(Button)findViewById(R.id.loginButton);
+    @Override
+    public void onClick(View view) {
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread thread = new Thread(){
-                    @Override
-                    public void run() {
-                        final String res = sentPost(emailTextView.getText().toString(),
-                                passwordTextView.getText().toString());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                int r = objJSON(res);
-                                if (r>0){
-                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                    startActivity(intent);
-                                }else {
-                                    Toast.makeText(getApplicationContext(),"Usuario o password incorrecto",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
-                };
-                thread.start();
+        if (view == btnLogin){
+            String email = edtEmail.getText().toString();
+            String pwd = edtPwd.getText().toString();
+            UsuarioDAO dao = new UsuarioDAO(this);
+            UsuarioBean bean = dao.Login(email,pwd);
+
+            if(bean == null){
+                Toast.makeText(this,"No se encontro usuario", Toast.LENGTH_SHORT).show();
+            }else{
+                Intent ir = new Intent(this,MainActivity.class);
+                startActivity(ir);
+                /*Toast.makeText(this, "Si existe" , Toast.LENGTH_SHORT).show();*/
             }
-        });
-    }
-
-    public String sentPost(String email, String password){
-        String parameter="email="+email+"&password="+password;
-        HttpURLConnection connection=null;
-        String answer="";
-
-        URL url = null;
-        try {
-            url = new URL("");
-            connection=(HttpURLConnection)url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Lenght",""+Integer.toString(parameter.getBytes().length));
-            connection.setDoOutput(true);
-            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
-            dataOutputStream.writeBytes(parameter);
-            dataOutputStream.close();
-
-            Scanner scanner = new Scanner(connection.getInputStream());
-
-            while (scanner.hasNextLine())
-                answer+=(scanner.nextLine());
-        } catch (Exception e) {
         }
+        if (view == btnRegistrar){
 
-        return answer.toString();
-    }
+            Intent ir = new Intent(this , UsuarioNuevoActivity.class);
+            startActivity(ir);
 
-    public int objJSON(String rspt){
-        int res=0;
-        try {
-            JSONArray jsonArray = new JSONArray(rspt);
-            if (jsonArray.length()>0){
-                res=1;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        return res;
     }
-
 }
